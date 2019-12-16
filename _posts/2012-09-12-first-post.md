@@ -6,23 +6,23 @@ layout: post
 
 This is a post that I study Kotlin with a book, Kotlin in action
 
-1.ÄÚÆ²¸°Àº Å¸ÀÔ Ãß·Ð(type inference)À» Áö¿øÇÏ´Â Á¤Àû(Å¸ÀÔ) ¾ð¾î
-  1) Å¸ÀÔ Ãß·Ð : ÄÚÆ²¸° ÄÄÆÄÀÏ·¯°¡ ¹®¸ÆÀ¸·ÎºÎÅÍ º¯¼ö Å¸ÀÔÀ» ÀÚµ¿À¸·Î ?ÃßÇÏ¿© °áÁ¤
-  2) Á¤Àû Å¸ÀÔ : ¸ðµç ÇÁ·Î±×·¥ ±¸¼º ¿ä¼ÒÀÇ Å¸ÀÔÀ» ÄÄÆÄÀÏ ½ÃÁ¡¿¡ ¾Ë ¼ö ÀÖÀ½
+1.ì½”í‹€ë¦°ì€ íƒ€ìž… ì¶”ë¡ (type inference)ì„ ì§€ì›í•˜ëŠ” ì •ì (íƒ€ìž…) ì–¸ì–´
+  1) íƒ€ìž… ì¶”ë¡  : ì½”í‹€ë¦° ì»´íŒŒì¼ëŸ¬ê°€ ë¬¸ë§¥ìœ¼ë¡œë¶€í„° ë³€ìˆ˜ íƒ€ìž…ì„ ìžë™ìœ¼ë¡œ ?ì¶”í•˜ì—¬ ê²°ì •
+  2) ì •ì  íƒ€ìž… : ëª¨ë“  í”„ë¡œê·¸ëž¨ êµ¬ì„± ìš”ì†Œì˜ íƒ€ìž…ì„ ì»´íŒŒì¼ ì‹œì ì— ì•Œ ìˆ˜ ìžˆìŒ
 
-2.ÄÚÆ²¸°Àº °´Ã¼ÁöÇâ°ú ÇÔ¼öÇü ÇÁ·Î±×·¡¹ÖÀÇ ½ºÅ¸ÀÏ ¸ðµÎ Áö¿ø.
-  1) ÀÏ±Þ ½Ã¹ÎÀÎ(first-class) ÇÔ¼ö 
-  2) ºÒº¯¼º(immutability) 
-  3) ÇÔ¼öÇü ÇÁ·Î±×·¡¹Ö
-     ¤¡) °£°á¼º, °­·ÂÇÑ Ãß»óÈ­
-     ¤¤) ºÒº¯ °ª Áö¿øÀ» ÅëÇØ ´ÙÁß ½º·¹µå °³¹ß°ú ½±°Ô Å×½ºÆ® °¡´É
-     ¤§) ´ÙÁß½º·¹µå¸¦ »ç¿ëÇØµµ ¾ÈÀü(safe multithreading)
+2.ì½”í‹€ë¦°ì€ ê°ì²´ì§€í–¥ê³¼ í•¨ìˆ˜í˜• í”„ë¡œê·¸ëž˜ë°ì˜ ìŠ¤íƒ€ì¼ ëª¨ë‘ ì§€ì›.
+  1) ì¼ê¸‰ ì‹œë¯¼ì¸(first-class) í•¨ìˆ˜ 
+  2) ë¶ˆë³€ì„±(immutability) 
+  3) í•¨ìˆ˜í˜• í”„ë¡œê·¸ëž˜ë°
+     ã„±) ê°„ê²°ì„±, ê°•ë ¥í•œ ì¶”ìƒí™”
+     ã„´) ë¶ˆë³€ ê°’ ì§€ì›ì„ í†µí•´ ë‹¤ì¤‘ ìŠ¤ë ˆë“œ ê°œë°œê³¼ ì‰½ê²Œ í…ŒìŠ¤íŠ¸ ê°€ëŠ¥
+     ã„·) ë‹¤ì¤‘ìŠ¤ë ˆë“œë¥¼ ì‚¬ìš©í•´ë„ ì•ˆì „(safe multithreading)
 
-3.ÄÚÆ²¸°À» ¼­¹ö, ¾Èµµ¸£ÀÌµå¿¡ È°¿ë °¡´É
+3.ì½”í‹€ë¦°ì„ ì„œë²„, ì•ˆë„ë¥´ì´ë“œì— í™œìš© ê°€ëŠ¥
 
-4.¹«·á¸ç ¿ÀÇÂ¼Ò½º, IDE¿Í ºôµå ½Ã½ºÅÛÀ» ¿ÏÀüÈ÷ Áö¿ø
+4.ë¬´ë£Œë©° ì˜¤í”ˆì†ŒìŠ¤, IDEì™€ ë¹Œë“œ ì‹œìŠ¤í…œì„ ì™„ì „ížˆ ì§€ì›
 
-5.½Ç¿ëÀûÀÌ°í ¾ÈÀüÇÏ°í, °£°áÇÏ¸ç »óÈ£¿î¿ë¼ºÀÌ ÁÁÀ½
-  1) NPE¿Í °°ÀÌ ÈçÈ÷ ¹ß»ýÇÏ´Â ¿À·ù¸¦ ¹æÁö
+5.ì‹¤ìš©ì ì´ê³  ì•ˆì „í•˜ê³ , ê°„ê²°í•˜ë©° ìƒí˜¸ìš´ìš©ì„±ì´ ì¢‹ìŒ
+  1) NPEì™€ ê°™ì´ í”ížˆ ë°œìƒí•˜ëŠ” ì˜¤ë¥˜ë¥¼ ë°©ì§€
   
-Kotlin
+Kotlin is good!
