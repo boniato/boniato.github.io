@@ -3,6 +3,7 @@ title: Kotlin Study chapter 01
 author: Ahreum
 layout: post
 ---
+
 This is a post that I study Kotlin with a book, Kotlin in action
 
 1.코틀린은 타입 추론(type inference)을 지원하는 정적(타입) 언어
@@ -23,3 +24,5 @@ This is a post that I study Kotlin with a book, Kotlin in action
 
 5.실용적이고 안전하고, 간결하며 상호운용성이 좋음
   1) NPE와 같이 흔히 발생하는 오류를 방지
+  
+Kotlin
