@@ -809,7 +809,7 @@ Author links are all optional, include the ones you want visible under the `auth
 author:
   name: "Your Name"
   avatar: "/assets/images/bio-photo.jpg"
-  bio: "I am an **amazing4** person." # Note: Markdown is allowed
+  bio: "I am an **amazing** person." # Note: Markdown is allowed
   location: "Somewhere"
   links:
     - label: "Made Mistakes"

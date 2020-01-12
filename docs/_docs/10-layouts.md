@@ -548,7 +548,7 @@ To assign more author links, add to the `author.links` array  in [`_config.yml`]
 author:
   name: "Your Name"
   avatar: "/assets/images/bio-photo.jpg"
-  bio: "I am an **amazing3** person." # Note: Markdown is allowed
+  bio: "I am an **amazing** person." # Note: Markdown is allowed
   location: "Somewhere"
   links:
     - label: "Made Mistakes"
