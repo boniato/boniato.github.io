@@ -108,7 +108,7 @@ analytics:
 # Site Author
 author:
   name             : "Ahreum Lee"
-  avatar           : "/assets/images/profile-image.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/blog-profile-image.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "I am a **progammer**."
   location         : "Seoul"
   email            : "ahh.reum.lee@gmail.com"
