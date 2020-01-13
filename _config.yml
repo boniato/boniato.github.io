@@ -108,11 +108,13 @@ analytics:
 # Site Author
 author:
   name             : "Ahreum Lee"
-  avatar           : "/assets/images/blog-profile-image.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am a **progammer**."
+  avatar           : "/assets/images/blog-profile-image.png"
+  bio              : "I am a **progammer** who wear a checked shirt."
   location         : "Seoul"
   email            : "ahh.reum.lee@gmail.com"
   github           : "boniato"
+  home             : "https://thatisgood.tistory.com/"
+  uri              : "https://thatisgood.tistory.com/"
   #links:
   #  - label: "Email"
   #    icon: "fas fa-fw fa-envelope-square"
