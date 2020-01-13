@@ -9,7 +9,7 @@
 <br/>
 2. 도메인 혹은 URL 등록
 
-<img src="/assets/images/posts/post1/post1_GoogleSearch02.png" width="80%" height="80%" title="등록" alt="등록"></img>
+<img src="/assets/images/posts/post1/post1_GoogleSearch02.png" width="80%" height="80%" title="등록" alt="등록">
 
 본인의 Github URL을 입력합니다.
 <br/>
@@ -19,7 +19,7 @@
 
    생성된 html을 다운받습니다.
 
-<img src="/assets/images/posts/post1/post1_GoogleSearch03.png" width="50%" height="50%" title="HTML파일다운로드" alt="HTML파일다운로드"></img>
+<img src="/assets/images/posts/post1/post1_GoogleSearch03.png" width="50%" height="50%" title="HTML파일다운로드" alt="HTML파일다운로드">
 <br/>
 <br/>
 <br/>
@@ -31,7 +31,7 @@
 <br/>
 5. 확인 버튼을 클릭하면 다음과 같이 "소유권이 확인됨" 창을 볼 수 있습니다.
 
-<img src="/assets/images/posts/post1/post1_GoogleSearch04.png" width="50%" height="50%" title="소유권확인" alt="소유권확인"></img>
+<img src="/assets/images/posts/post1/post1_GoogleSearch04.png" width="50%" height="50%" title="소유권확인" alt="소유권확인">
 <br/>
 <br/>
 <br/>
