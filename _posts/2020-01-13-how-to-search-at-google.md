@@ -33,3 +33,13 @@
 
 <img src="/assets/images/posts/post1/post1_GoogleSearch04.png" width="50%" height="50%" title="소유권확인" alt="소유권확인"></img>
 <br/>
+<br/>
+<br/>
+cf.) 네이버와 다음에도 본인 URL을 확인 및 등록해봅니다.
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[NAVER Search Advisor](https://searchadvisor.naver.com/search) 등록
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[daum 검색 등록](https://register.search.daum.net/index.daum) 등록
+<br/>
