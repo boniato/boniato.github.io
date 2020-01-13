@@ -113,8 +113,9 @@ author:
   location         : "Seoul"
   email            : "ahh.reum.lee@gmail.com"
   github           : "boniato"
-  home             : "https://thatisgood.tistory.com/"
   uri              : "https://thatisgood.tistory.com/"
+  #home            : "https://thatisgood.tistory.com/"
+  
   #links:
   #  - label: "Email"
   #    icon: "fas fa-fw fa-envelope-square"
