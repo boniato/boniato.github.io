@@ -10,21 +10,21 @@
 
 
 추상 메소드가 있는 인터페이스 선언
-```java
+```kotlin
 interface Clickable {
     fun click()
 }
 ```
 
 Clickable 인터페이스의 click 추상메소드를 구현하는 클래스
-```java
+```kotlin
 class Button : Clickable {
     override fun click() = println("I was clicked")
 }
 ```
 
 위에 코드를 실행해 봅니다.
-```java
+```kotlin
 fun main(args: Array<String>) {
     Button().click() //I was clicked
 }
@@ -32,7 +32,7 @@ fun main(args: Array<String>) {
 
 상속한 다중 인터페이스 메소드 구현
 
-```java
+```kotlin
 interface Clickable {
     fun click()
     fun showOff() = println("I'm clickable!")
