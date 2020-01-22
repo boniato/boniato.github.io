@@ -19,9 +19,8 @@ button.setOnClickListener(new onClickListener() {
     public void onClick(View view) {
         /* 클릭 시 수행할 동작 */
     }
-})
+});
 ```
-<br>
 
 ㆍ**람다**로 리스너 구현하기
 ```kotlin
