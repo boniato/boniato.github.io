@@ -1,4 +1,4 @@
-##### Kotlin In Actihttps://github.com/boniato/boniato.github.ioon Chapter5
+##### Kotlin In Action Chapter5
 # 람다로 프로그래밍
 
 ## 1. 람다 식
