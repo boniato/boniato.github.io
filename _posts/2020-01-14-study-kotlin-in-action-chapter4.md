@@ -71,6 +71,32 @@ fun main(args: Array<String>) {
 <br>
 
 ## 2. 생성자와 프로퍼티
+코틀린은 주 생성자(primary constructor)와 부 생성자(secondary constructor)를 구분한다.
+주 생성자는 클래스를 초기화할 때 주로 사용하는 간략한 생성자로 클래스 본문 밖에서 정의한다.
+부 생성자는 클래스 본문 안에서 정의한다.
+또한 초기화 블록(initializer block)을 통해 초기화 로직을 추가할 수 있다.
+
+### 2.1 주 생성자와 초기화 블록
+
+다음은 간단한 클래스를 선언하는 예제이다.
+
+```kotlin
+class User(val nickname: String)
+```
+
+위 예제에서 클래스 이름 뒤의 괄호로 둘러싸인 코드를 주 생성자(primary constructor)라고 부른다. 
+주 생성자는 **생성자 파라미터를 지정하고 그 생성자 파라미터에 의해 초기화되는 프로퍼티를 정의하는 두 가지 목적**에 쓰인다.
+위 코드를 명시적인 선언으로 풀어쓰면 다음과 같다.
+```kotlin
+class User constructor(_nickname: String) {  /* 파라미터가 하나만 있는 주 생성자 */
+    val nickname: String
+    init {  /* 초기화 블록 */
+        nickname = _nickname
+    }
+}
+```
+**constructor** 키워드는 주 생성자나 부 생성자 정의를 시작할 때 사용한다.<br>
+**init** 키워드는 초기화 블록을 시작한다. 초기화 블록은 클래스의 객체가 만들어질 때(인스턴스화될 때) 실행될 초기화 코드가 들어간다. 초기화 블록은 주 생성자와 함께 사용한다.
 
 ## 3. 데이터 클래스
 
