@@ -1,4 +1,6 @@
 ### "QuerySyntaxException: posts is not mapped…" ###
+<img src="/assets/images/posts/error/2020-03-29-Query_Syntax_Exception.png" width="90%" height="90%" title="등록" alt="등록">
+
 <br>
 테스트 코드를 돌리니 위와 같은 에러가 났다.
 <br><br>
