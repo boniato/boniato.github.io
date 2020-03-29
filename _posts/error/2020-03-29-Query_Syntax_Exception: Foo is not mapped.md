@@ -1,7 +1,7 @@
 ### "QuerySyntaxException: posts is not mapped…" ###
-
-테스트 코드를 돌리니 위와 같은 에러가 났다.
 <br>
+테스트 코드를 돌리니 위와 같은 에러가 났다.
+<br><br>
 구글링을 하니 JPQL은 대부분 대소문자 구분이 없지만, 이를 구분하는 경우 중 하나는 자바 객체명이라고 한다. 즉, 테이블과 매핑된 도메인의 클래스명과 같아야한다.
 <br><br>
 "JPQL mostly is case-insensitive. One of the things that is case-sensitive is Java entity names. Change your query to..."
