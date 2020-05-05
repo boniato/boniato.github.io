@@ -31,11 +31,15 @@ AWS에서 보안그룹의 Inbound rules에서 EC2 서버 IP로 연결할 수 있
 
 Type은 MYSQL/Aurora, Source는 Custom으로 두고 EC2 서버 IP를 입력한 후 저장한다.
 
+<br>
+
 다시 nc 명령어를 이용하여 RDS DB 인스턴스가 연결되는지 확인한다.
 
 <img src="/assets/images/posts/error/2020.05.06-aws_rds_connect_success.png" width="100%" height="100%" alt="error">
 
 연결이 성공하였다면 succeeded! 메시지를 볼 수 있다.
+
+<br>
 
 아래는 Amazon RDS DB 인스턴스에 연결할 때 발생하는 문제를 해결하는 방법을 가이드한 링크이다.
 
