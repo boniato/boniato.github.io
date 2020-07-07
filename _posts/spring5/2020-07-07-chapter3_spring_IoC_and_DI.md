@@ -653,12 +653,13 @@ public class HelloWorldSpringAnnotated {
 
 * 이 코드에서 provider 빈이 messageProvider 프로퍼티에 지정되어 있음을 알 수 있음
 * ref 애트리뷰트를 사용하여 프로퍼티에 빈 참조를 지정할 수 있음
-* 스프링 2.5버전 이상을 사용한다면 XML 구성 파일에 p네임 스페이스를 선언하여 의존성 주입을 할 수 있음
+* 스프링 2.5버전 이상을 사용한다면 XML 구성 파일에 **p네임 스페이스를 선언하여 의존성 주입**을 할 수 있음
 * 네임스페이스는 XSD 파일에 정의되어 있지 않고 스프링 코어에만 존재함
 
 ```xml
 <beans>
-    <bean id="renderer" class="com.apress.prospring5.ch2.decoupled.StandardOutMessageRenderer" p:messageProvider-ref="provider" />
+    <bean id="renderer" class="com.apress.prospring5.ch2.decoupled.StandardOutMessageRenderer" 
+          p:messageProvider-ref="provider" />
 </beans>
 ```
 
@@ -688,7 +689,7 @@ public class StandardOutMessageRenderer implements MessgeRenderer [
 
 ```xml
 <bean id="messageProvider" class="com.apress.prospring5.ch3.xml.ConfigurableMessageProvider">
-    <constructor-arg value="Hi~~~! This is message~~~!" />
+    <constructor-arg value="Hi! This is message!" />
 </bean>
 ```
 
@@ -700,7 +701,7 @@ public class StandardOutMessageRenderer implements MessgeRenderer [
 
 ```xml
 <bean id="messageProvider" class="com.apress.prospring5.ch3.xml.ConfigurableMessageProvider"
-    c:message="Hi~~~! This is message~~~!" />
+    c:message="Hi! This is message!" />
 </bean>
 ```
 
