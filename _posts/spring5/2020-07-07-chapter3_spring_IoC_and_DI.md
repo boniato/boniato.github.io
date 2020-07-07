@@ -804,6 +804,8 @@ public class ConstructorConfusion {
 * 클래스 멤버 변수에 @Autowired 애너테이션을 적용
 * 의존성이 필요한 객체의 내부에서만 주입된 의존성을 사용할 경우 사용 하면 개발자가 빈 초기 생성 시 의존성 주입에 사용되는 코드를 작성하지 않아도 되므로 실용적임
 
+* 예제 3-40) 필드 주입을 이용한 빈 클래스([filed-injection] Singer.java)
+
 ```java
 @Service("singer")
 public class singer {
@@ -812,14 +814,44 @@ public class singer {
     private Inspiration inspirationBean;
 
     public void sing() {
-        System.out.println("....." + inspirationBean.lyric())
+        System.out.println("..." + inspirationBean.getLyric());
     }
 }
 ```
 
-* Inspiration 필드가 private이지만 스프링 IoC 컨테이너가 의존성을 주입하는 것에는 문제없음
+* Inspiration 필드는 private이지만 스프링 IoC 컨테이너가 의존성을 주입하는 것에는 문제없음
 * 스프링 컨테이너가 리플렉션을 이용해 필요한 의존성을 주입하기 때문
+
+* 다음 예제에서 Inspiration 클래스 코드를 확인. 이 빈은 String 타입의 멤버 변수를 가진 단순한 빈.
+* 예제 3.41) String 타입 멤버 변수를 가진 빈 클래스(filed-injection] Inspiration.java)
+
+```java
+package com.apress.prospring5.ch3.annotated;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Inspiration {
+
+	private String lyric = "I can keep the door cracked open, to let light through";
+
+	public Inspiration(@Value("For all my running, I can understand") String lyric) {
+		this.lyric = lyric;
+	}
+
+	public String getLyric() {
+		return lyric;
+	}
+
+	public void setLyric(String lyric) {
+		this.lyric = lyric;
+	}
+}
+```
+
 * 아래 코드는 스프링 IoC컨테이너가 생성할 빈의 정의를 찾을 수 있도록 컴포넌트 스캔 설정을 활성화하는 구성
+* 예제 3-42) 컴포넌트 스캐닝 설정을 한 구성 파일(filed-injection] app-context.xml)
 
 ```xml
 <beans .... />
@@ -828,17 +860,43 @@ public class singer {
 ```
 
 * 스프링 IoC 컨테이너는 Inspiration타입의 빈을 발견하면 singer 빈의 inspirationBean 멤버에 해당 빈을 주입할 것
-* 필드 주입의 단점
+* 그래서 다음 코드에 나와 있는 예제를 실행하면 "For all my running, I can understand"이라는 메시지가 콘솔에 출력됨
+* 예제 3-43) 필드 주입 테스트 실행을 위한 FieldInjection 클래스([filed-injection] FieldInjection.java)
 
-* 의존성을 추가하기 쉽지만 단일 책임 원칙을 위반하지 않도록 주의해야함
-  * 더 많은 의존성이 생기면 클래스에 대한 책임이 커지므로 리팩토링 시에 관심사를 분리하기 어려움
-  * 클래스가 비대해지는 상황은 생성자나 수정자 주입을 사용하면 쉽게 알 수 있지만 필드 주입은 알아채기 어려움
-* 의존성 주입의 책임은 스프링 컨테이너에게 있지만, 클래스는 public 인터페이스의 매소드나 생성자를 이용해 필요한 의존성 타입을 명확하게 전달해야함
-  * 그러나 필드 주입을 사용하면 어떤 타입의 의존성이 실제 필요한지, 의존성이 필수인지 여부가 명확하지 않을 수도 있음
-* 필드 주입은 final 필드에 사용할 수 없음. 이 타입 필드는 오직 생성자 주입만을 사용하여 초기화 할 수 있음
-* 필드 주입은 의존성을 수동으로 주입해야하므로 테스트 코드를 작성하기 어려움
+```java
+package com.apress.prospring5.ch3.annotated;
+
+import org.springframework.context.support.GenericXmlApplicationContext;
+
+public class FieldInjection {
+
+	public static void main(String... args) {
+
+		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
+		ctx.load("classpath:spring/app-context.xml");
+		ctx.refresh();
+
+		Singer singerBean = ctx.getBean(Singer.class);
+		singerBean.sing();
+
+		ctx.close();
+	}
+}
+```
+
+* 하지만 필드 주입은 여러 단점이 있어서 일반적으로 사용을 권장하지 안음!
+
+* 필드 주입의 단점
+  * 의존성을 추가하기 쉽지만 단일 책임 원칙을 위반하지 않도록 주의해야함
+    * 더 많은 의존성이 생기면 클래스에 대한 책임이 커지므로 리팩토링 시에 관심사를 분리하기 어려움
+    * 클래스가 비대해지는 상황은 생성자나 수정자 주입을 사용하면 쉽게 알 수 있지만 필드 주입은 알아채기 어려움
+  * 의존성 주입의 책임은 스프링 컨테이너에게 있지만, 클래스는 public 인터페이스의 매소드나 생성자를 이용해 필요한 의존성 타입을 명확하게 전달해야함
+    * 그러나 필드 주입을 사용하면 어떤 타입의 의존성이 실제 필요한지, 의존성이 필수인지 여부가 명확하지 않을 수도 있음
+  * 필드 주입은 final 필드에 사용할 수 없음. 이 타입 필드는 오직 생성자 주입만을 사용하여 초기화 할 수 있음
+  * 필드 주입은 의존성을 수동으로 주입해야하므로 테스트 코드를 작성하기 어려움
 
 <br>
+
 3.5.3.5 **주입 인자 사용**하기
 
 * 스프링은 다른 컴포넌트나 단순 값 외에 자바 컬렉션, 외부에 정의된 프로퍼티, 다른 팩터의 빈을 주입할 수 있도록 많은 옵션의 주입인자를 지원함
