@@ -19,30 +19,49 @@
   * **빈(bean)은 스프링에서 클래스의 인스턴스를 의미**함.
   * 이클립스는 인텔리제이 IDEA와 다르게 의존성을 트리 형태로 보여주지 않음. 그러나 빌드 구성 파일에 지정하지 않은 aop, beans 등의 모듈이 있는 것을 보면 그레이들이 전이 의존성을 통해 필요한 모든 라이브러리를 받았음을 알 수 있음
 
-* IoC와 DI의 주 목적 : 컴포넌트의 의존성을 제공하고 이러한 의존성을 라이프사이클 전반에 걸쳐 관리하는 보다 간편한 메커니즘을 제공하는 것.
+* IoC와 DI의 주 목적 : **컴포넌트의 의존성을 제공**하고 **이러한 의존성을 라이프사이클 전반에 걸쳐 관리**하는 보다 간편한 메커니즘을 제공하는 것.
 
-* IoC(Inversion of Control) 두 가지 하위분류로 나눌 수 있음
+* IoC(Inversion of Control, 제어의 역행) 두 가지 하위분류로 나눌 수 있음
   * 의존성 주입(Dependency Injection, DI)
   * 의존성 룩업(Dependency Lookup, DL)
     * 이들은 다시 구체적인 IoC 구현체로 나늼.
 
 * IoC 종류
   * **의존성 주입(DI)** : 이 방식의 IoC에서는 IoC **컨테이너가 컴포넌트에 의존성을 주입**합니다.<br>
-    1) 의존성 주입(DI)은 프로그래밍에서 구성요소간의 의존 관계가 소스코드 내부가 아닌 **외부의 설정파일 등을 통해 정의**되게 하는 디자인 패턴 중 하나.
-    2) 각 클래스간의 의존관계를 빈 설정(Bean Definition) 정보를 바탕으로 컨테이너가 자동으로 연결해주는 것.
-    * 생성자(constructor) 의존성 주입
-    * 수정자(setter) 의존성 주입
-    * 메소드(Method Injection) 의존성 주입
+    * 덧붙여 설명하자면..
+    * Martin Fowler가 제어의 어떠한 부분이 반전되는가라는 질문에 '의존 관계 주입'이라는 용어를 사용하였다고 함.
+    * 의존성 주입(DI)은 프로그래밍에서 구성요소간의 의존 관계가 소스코드 내부가 아닌 **외부의 설정파일 등을 통해 정의**되게 하는 디자인 패턴 중 하나.
+      * 여기서 외부 설정파일은 스프링 설정파일을 의미하며, **스프링 설정파일을 통하여 객체간의 의존관계를 설정**
+      * 스프링 컨테이너(Spring Container)가 제공하는 API를 이용해 객체를 사용.
+    * 각 클래스간의 의존관계를 빈 설정(Bean Definition) 정보를 바탕으로 컨테이너가 자동으로 연결해주는 것.
+      * 생성자(constructor) 의존성 주입
+      * 수정자(setter) 의존성 주입
+      * 메소드(Method Injection) 의존성 주입(책에서는 없는 내용이지만 추가함.)
   * **의존성 룩업(DL)** : 이 방식의 IoC에서는 **컴포넌트 스스로 의존성의 참조를 가져와야** 합니다.
-    1) 저장소에 저장되어 있는 Bean에 접근하기 위해 컨테이너가 제공하는 API를 이용하여 Bean을 Lookup하는 것.
-    * 의존성 풀(Dependency Pull)
-    * 의존성 룩업(CDL)
+    * 저장소에 저장되어 있는 Bean에 접근하기 위해 컨테이너가 제공하는 API를 이용하여 Bean을 Lookup하는 것.
+      * 의존성 풀(Dependency Pull)
+      * 의존성 룩업(CDL)
 
 * **Spring DI 컨테이너** (책에 없는 내용)
   * **빈(Bean)** : Spring DI 컨테이너가 관리하는 객체
-  * **빈 팩토리(Bean Factory)** : 빈(Bean)들을 관리하는 컨테이너. Bean 등록, 생성, 조회, 반환 관리. 보통은 BeanFactory를 바로 사용하지 않고, 이를 확장한 Application Context를 사용.
-  * **어플리케이션 컨텍스트(Application Context)** : 빈 팩토리(Bean Factory)에 여러가지 컨테이너 기능을 추가한 것. Bean 등록, 생성, 조회, 반환 관리.
-     
+  * **빈 팩토리(Bean Factory)** : 빈(Bean)들을 관리하는 컨테이너. Bean(객체) 등록, 생성, 조회, 반환 관리. 빈 객체간의 의존관계 설정해주는 기능 제공.
+  * **어플리케이션 컨텍스트(Application Context)** : 빈 팩토리(Bean Factory)에 여러가지 컨테이너 기능을 추가한 것(추가 기능: AOP, 메시지 지원, 국제화 지원 등). 보통은 BeanFactory를 바로 사용하지 않고, 이를 확장한 Application Context를 사용. 
+  * **스프링 설정파일** : Spring Container가 어떻게 일할지를 설정하는 파일. XML 기반으로 작성. RootTag는 <beans>임.
+    * ex.) applicationContext.xml
+```xml
+        <?xml version="1.0" encoding="UTF-8"?>
+
+        <beans xmlns="http://www.springframework.org/schema/beans"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+            <bean id="oracle" name="wiseworm" class="com.apress.prospring5.ch3.BookwormOracle"/>
+        </beans>
+```
+    * 여기서 <bean>은 스프링 컨테이너가 관리할 Bean객체를 설정하는 것임.
+  * **스프링 컨테이너(Spring Container)** : 설정파일에 설정된 내용을 읽어 Application에서 필요한 기능들을 제공. 객체를 관리.
+  
 * 3.2.1 의존성 풀
   * 의존성 풀에서는 필요에 따라 레지스트리에서 의존성을 가져오게 됩니다.<br>
     ex) JNDI API를 사용한 EJB 컴포넌트 룩업<br>
