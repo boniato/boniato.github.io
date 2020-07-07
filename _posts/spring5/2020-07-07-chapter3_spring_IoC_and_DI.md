@@ -180,13 +180,13 @@ public class SetterInjection {
 * ex) EJB 2.1 이하 버전을 사용할 때 EJB를 JEE 컨테이너에서 가져오려면 의존성 룩업(JNDI를 통한) 방식의 IoC를 사용해야 함.
       스프링에서는 초기 빈 룩업을 제외하면 컴포넌트와 의존성은 항상 의존성 주입 방식의 IoC를 이용해 연결됨.
 * 주입 방식을 선택하는 가장 큰 이유는 의존성 주입을 사용하면 그만큼 개발이 쉬워지기 때문. 작성해야 하는 코드량 줄이고 코드도 간결. IDE를 이용해 자동화도 가능.
-* 주입 코드는 **객체가 필드에만 저장**됨. 저장소나 컨테이너에서 의존성을 가져오는 코드가 전혀 필요하지 않음. 따라서 코드는 훨씬 단순해지고 에러도 줄어듬.
+* **주입 코드**는 **객체가 필드에만 저장**됨. 저장소나 컨테이너에서 의존성을 가져오는 코드가 전혀 필요하지 않음. 따라서 코드는 훨씬 단순해지고 에러도 줄어듬.
 
 3.2.6 **수정자 주입** vs. **생성자 주입**
-* 생성자 주입(constructor injection)
+* **생성자 주입(constructor injection)**
   * **컴포넌트 사용 전에 해당 컴포넌트의 의존성을 반드시 갖고 있어야 할 때 매우 유용**. 의존성 점검 메커니즘을 제공하는지와 상관없이 의존성에 대한 요구사항 지정 가능.
   * 빈 객체를 불변 객체로 사용 가능.
-* 수정자 주입(setter injection)
+* **수정자 주입(setter injection)**
   * 기존 의존성을 제공할 때 일반적으로 **수정자 주입이 의존성 주입에 가장 좋은 방법**
   * 인터페이스에서 모든 의존성을 선언할 수 있음
   
@@ -330,7 +330,7 @@ public class XmlConfigWithBeanFactory {
   
   
 3.5.2 기본 구성의 개요
-* XML 구성을 사용하려면 애플리케이션에서 필요한 **스프링 네임스페이스 베이스**를 선언해야함
+* **XML 구성을 사용**하려면 애플리케이션에서 필요한 **스프링 네임스페이스 베이스**를 선언해야함
 
 
 * 스프링 빈 정의에 사용하는 네임스페이스 선언의 예 (app-context-xml.xml)
@@ -345,13 +345,16 @@ public class XmlConfigWithBeanFactory {
           http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="renderer"
-        class="com.apress.prospring5.ch2.decoupled.StandardOutMessageRenderer"
+        class="com.apress.prospring5.ch3.annotated.StandardOutMessageRenderer"
         p:messageProvider-ref="provider"/>
 
     <bean id="provider"
-        class="com.apress.prospring5.ch2.decoupled.HelloWorldMessageProvider"/>
+        class="com.apress.prospring5.ch3.annotated.HelloWorldMessageProvider"/>
 </beans>
 ```
+
+* **컴포넌트 스캔(component-scan)**
+  * 지정한 패키지의 모든 하위 패키지에 있는 클래스에 애너테이션이 선언된 클래스를 찾아(스캔) 자동으로 bean을 생성
 
 * **컴포넌트 스캐닝 설정**을 한 XML 구성 파일 (app-context-annotation.xml)
 
@@ -371,8 +374,8 @@ public class XmlConfigWithBeanFactory {
 </beans>
 ```
 
-* **<context:component-scan> 태그**는 
-  * **지정한 패키지의 모든 하위 패키지에 있는 클래스에 선언된 @Autowired, @Inject, @Resource 애너테이션 뿐만 아니라,
+* **<context:component-scan> 태그**는
+  * **지정한 패키지의 모든 하위 패키지에 있는 클래스에 선언된 @Autowired, @Inject, @Resource 애너테이션 뿐만 아니라, **
   * **@Component, @Controller, @Repository, @Service 애너테이션이 선언된, 의존성 주입이 가능한 빈의 코드를 스캔하도록 스프링에게 지시**함!!
   * 여러 패키지 정의 가능 : <context:component-scan> 태그에서 쉼표, 세미콜론, 공백을 구분 기호로 사용해 여러 패키지를 정의할 수 있음
   * 스캔 범위 제어 가능 : 이 태그에서는 컴포넌트 스캔의 범위와 제외 범위를 지정해 스캔 범위 제어 가능
@@ -399,6 +402,54 @@ public class XmlConfigWithBeanFactory {
 </beans>
 ```
 
+* 컴포넌트 스캔(component-scan) 다른 예제
+  * 예제1) 설정파일로 bean 객체 주입하는 예제
+
+  ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+
+    <beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+        <bean id="memberDAO" class="com.spring5.ch3.model.MemberDAO"/>
+        <bean id="sellerDAO" class="com.spring5.ch3.model.SellerDAO"/>
+    </beans>
+  ```
+
+  * 예제2) 예제1)을 컴포넌트 스캔(component-scan)으로 변경
+
+  ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+
+    <beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans.xsd"
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd">
+                                                                             
+        <context:component-scan base-package="com.spring5.ch3.model"></context:component-scan>
+    </beans>
+  ```
+
+  <br>
+  * 위의 설정파일 java 예제
+
+  ```java
+      public static void  main(String[] args) {
+        //설정파일이 어디 있는지를 저장하는 객체
+        Resource resource = new ClassPathResource("applicationContext.xml");
+
+        //객체를 생성해주는 factory 객체
+        BeanFactory factory = new XmlBeanFactory(resource);
+
+        //설정파일에 설정한 <bean> 태그의 id/name을 통해 객체를 받아온다.
+        MemberDAO memberDAO = (MemberDAO)factory.getBean("memberDao");      
+        SellerDAO sellerDAO = (SellerDAO)factory.getBean("sellerDAO");
+      }
+  ```
 
 3.5.3 스프링 컴포넌트 선언하기
 * 스프링에게 이 빈(개발한 클래스)이 다른 빈에 주입될 수 있다는 것을 알려주고, 스프링이 이 빈들을 관리하게 해야 함.
@@ -460,7 +511,7 @@ app-context-xml.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans xmlns="htt
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -477,7 +528,7 @@ app-context-xml.xml
 
 
 2) 애너테이션 설정 예
-* 애너테이션을 사용해 빈 정의를 생성하는 클레스 예
+* **애너테이션을 사용해 빈 정의를 생성하는 클스** 예
 
 ```java
 //간단한 빈
