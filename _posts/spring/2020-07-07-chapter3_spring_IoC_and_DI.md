@@ -35,13 +35,13 @@
      * 의존성 룩업(CDL)
      
 * 3.2.1 의존성 풀
-  * 의존성 풀에서는 필요에 따라 레지스트리에서 의존성을 가져오게 됩니다.
-    ex) JNDI API를 사용한 EJB 컴포넌트 룩업
-        * JNDI(Java Naming and Directory Interface)는 
-          * 디렉터리 서비스에서 제공하는 데이터 및 객체를 발견(discover)하고 참고(lookup)하기 위한 자바 API
-          * 서버에서 관리하고 있는 리소스에 대한 정보를 알고 있고 특정 리소스를 찾아서 사용할 수있도록 객체를 반환
+  * 의존성 풀에서는 필요에 따라 레지스트리에서 의존성을 가져오게 됩니다.<br>
+    ex) JNDI API를 사용한 EJB 컴포넌트 룩업<br>
+  * JNDI(Java Naming and Directory Interface)는
+    * 디렉터리 서비스에서 제공하는 데이터 및 객체를 발견(discover)하고 참고(lookup)하기 위한 자바 API
+    * 서버에서 관리하고 있는 리소스에 대한 정보를 알고 있고 특정 리소스를 찾아서 사용할 수있도록 객체를 반환
           
-        ```java
+```java
          // 추억의 lookup 소스..
 
          public class DatabaseManager
@@ -53,7 +53,7 @@
                return ds.getConnection();
             }
          }
-         ```
+```
 
   * 스프링 프레임워크도 자신이 관리하는 컴포넌트를 가져오는 메커니증 중 하나로서 의존성 풀을 제공
   * 의존성 풀 사용 예
