@@ -1313,6 +1313,31 @@ public class AliasConfigDemo {
 * 스프링은 빈의 단일 인스턴스를 유지하고 관리하며, 모든 의존객체는 동일한 인스턴스를 사용하고 ApplicationContext.getBean()에 대한 모든 호출은 동일한 인스턴스를 반환
 * 싱글톤은 애플리케이션 내에 단일 인스턴스를 갖는 객체(싱글톤)와 싱글톤 디자인 패턴을 나타내려는 목적(싱글톤패턴)으로 상호 교환적으로 사용
 
+* NonSingleton 예제 코드
+
+```java
+public class NonSingletonDemo {
+    public static void main(String... args) {
+          GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
+          //ctx.load("classpath:spring/app-context-xml.xml");
+          ctx.load("classpath:spring/app-context-annotated.xml");
+          ctx.refresh();
+        
+          Singer singer1 = ctx.getBean("nonSingleton", Singer.class);
+          Singer singer2 =  ctx.getBean("nonSingleton", Singer.class);
+        
+          System.out.println("식별자가 동일한가?: " + (singer1 ==singer2));
+          System.out.println("값이 동일한가?: " + singer1.equals(singer2));
+          System.out.println(singer1);
+          System.out.println(singer2);
+
+          ctx.close();
+    }
+}
+```
+
+* Singleton 예제 코드
+
 ```java
 public class Singleton {
     
