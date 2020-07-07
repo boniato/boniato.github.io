@@ -61,7 +61,7 @@
         </beans>
 ```
 
-    * 여기서 <bean>은 스프링 컨테이너가 관리할 Bean객체를 설정하는 것임.
+    * 여기서 <bean> 태그는 스프링 컨테이너가 관리할 Bean객체를 설정하는 것임.
   
 * 3.2.1 **의존성 풀(Dependency Pull)**
   * 의존성 풀에서는 필요에 따라 레지스트리에서 의존성을 가져오게 됩니다.<br>
@@ -71,7 +71,7 @@
     * 서버에서 관리하고 있는 리소스에 대한 정보를 알고 있고 특정 리소스를 찾아서 사용할 수있도록 객체를 반환
           
 ```java
-         // 추억의 lookup 소스..
+         // lookup 소스..
 
          public class DatabaseManager
          {
@@ -182,11 +182,11 @@ public class SetterInjection {
 * 주입 방식을 선택하는 가장 큰 이유는 의존성 주입을 사용하면 그만큼 개발이 쉬워지기 때문. 작성해야 하는 코드량 줄이고 코드도 간결. IDE를 이용해 자동화도 가능.
 * 주입 코드는 **객체가 필드에만 저장**됨. 저장소나 컨테이너에서 의존성을 가져오는 코드가 전혀 필요하지 않음. 따라서 코드는 훨씬 단순해지고 에러도 줄어듬.
 
-3.2.6 수정자 주입 vs. 생성자 주입
-* 생성자 주입
+3.2.6 **수정자 주입** vs. **생성자 주입**
+* 생성자 주입(constructor injection)
   * **컴포넌트 사용 전에 해당 컴포넌트의 의존성을 반드시 갖고 있어야 할 때 매우 유용**. 의존성 점검 메커니즘을 제공하는지와 상관없이 의존성에 대한 요구사항 지정 가능.
   * 빈 객체를 불변 객체로 사용 가능.
-* 수정자 주입
+* 수정자 주입(setter injection)
   * 기존 의존성을 제공할 때 일반적으로 **수정자 주입이 의존성 주입에 가장 좋은 방법**
   * 인터페이스에서 모든 의존성을 선언할 수 있음
   
@@ -220,18 +220,18 @@ public class BookwormOracle implements Oracle {
   * 하지만 실제로는 주입을 위한 수정자가 사용자 인터페이스의 외부에 존재하도록 노력해야함
   
 **3.3 스프링 제어 역전**
-* 제어 역정(Inversion of Control, IoC)은 스프링이 하는 일 중에 가장 큰 부분을 차지!
+* 제어 역전(Inversion of Control, IoC)은 스프링이 하는 일 중에 가장 큰 부분을 차지!
 * 의존성 룩업 기능이 제공되지만, **스프링 구현의 핵심은 의존성 주입**임!
   * 스프링의 의존성 주입 메커니증
     [의존 객체] <------의존성 주입------- [스프링 BeanFactory 컨테이너]
 
-3.4 빈(Bean)과 빈 팩터리(Bean Factory)
-스프링의 의존성 주입 컨테이너의 핵심은 **빈 백터리 인터페이스** 입니다.
-* 빈 팩터리
+3.4 **빈(Bean)과 빈 팩터리(Bean Factory)**
+**스프링의 의존성 주입 컨테이너의 핵심**은 **빈 백터리 인터페이스** 입니다.
+* **빈 팩터리(Bean Factory)**
   * 컴포넌트 관리
   * 컴포넌트의 라이프사이클뿐만 아니라 의존성까지 관리
 
-3.4.2 BeanFactory 구현체
+3.4.2 **BeanFactory 구현체**
 * 독립 실행형 자바 어플리케이션에서 원하는 처리를 하기 위해 스프링의 BeanFactory를 초기화하고 oracle 빈을 가져오는 방법 코드
 
 ```java
@@ -268,26 +268,64 @@ public class XmlConfigWithBeanFactory {
 </beans>
 ```
 
-3.4.3 애플리케이션 컨텍스트(ApplicationContext)
+3.4.3 **애플리케이션 컨텍스트(ApplicationContext)**
 * 스프링의 애플리케이션 컨텍스트 인터페이스는 **BeanFactory를 상속한 인터페이스**
 * DI 서비스 외에도 트랜잭션 서비스, AOP 서비스, 국제화(il8n)를 위한 메시지 소스, 애플리케이션 이벤트 처리와 같은 여러 서비스 제공
-* 스프링 기반 애플리케이션 개발 할 때 **ApplicationContext 인터페이스**를 이용해 스프링을 사용하는 것을 권장
+* 스프링 기반 애플리케이션 개발 할 때 **ApplicationContext 인터페이스**를 이용해 스프링을 사용하는 것을 권장!
 
 * 스프링은 ApplicationContext를 
   * **직접 코드**로 **부트스트랩**(직접 인스턴스를 생성하고 적절한 애플리케이션 구성을 불러오는 방식)하거나
   * 웹 컨테이너 환경에서 **ContextLoaderListener를 이용**해 부트스트랩 합니다.
+
+* BeanFactory <<'interface>> <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↑ 
+* ApplicationContext <<'interface>> <br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↑ 
+* WebApplicationContext <<'interface>>
+
+* **빈(bean) 객체 주입 받기** (책에 없는 내용)
+  * 설정파일 설정
+    * <bean> : 스프링 컨테이너가 관리할 bean 객체를 설정
   
+```xml
+        <?xml version="1.0" encoding="UTF-8"?>
+
+        <beans xmlns="http://www.springframework.org/schema/beans"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+            <bean id="dao" class="com.spring5.ch3.model.MemberDAO"/>
+        </beans>
+```
+
+  * 설정 파일에 설정한 내용을 바탕으로 Spring API를 통해 객체를 주입 받는다.
+    * 설정파일이 어디 있는지 설정
+    * 객체를 만들어 주는 (Assembler) 객체 생성
+    
+```java
+    public static void  main(String[] args) {
+      //설정파일이 어디 있는지를 저장하는 객체
+      Resource resource = new ClassPathResource("applicationContext.xml");
+
+      //객체를 생성해주는 factory 객체
+      BeanFactory factory = new XmlBeanFactory(resource);
+
+      //설정파일에 설정한 <bean> 태그의 id/name을 통해 객체를 받아온다.
+      MemberDAO dao = (MemberDAO)factory.getBean("dao");
+    }
+```
 
 3.5.1 스프링 구성 옵션 설정하기
 * 스프링에서 애플리케이션 구성을 정의할 수 있는 옵션
-  * 빈 정의 : 프로퍼티 or XML 파일을 사용해 빈 정의할 수 있도록 지원
+  * 빈(bean) 정의 : 프로퍼티 or XML 파일을 사용해 빈 정의할 수 있도록 지원
   * JDK 5가 출시되고, 스프링이 자바 애너테이션 지원하면서 스프링 2.5부터는 ApplicationContext를 구성하는데 자바 애너테이션을 지원하기 시작!
-  * XML과 애너테이션 방식 중 어느것이 더 나을까 -> 각 장단점이 있기에 정답 없음.
+  * XML과 애너테이션 방식 중 어느것이 더 나을까? -> 각 장단점이 있기에 정답 없음.
     * XML 파일을 사용하면 모든 구성을 자바에서 분리해 외부에서 관리
     * 애너테이션을 사용하면 개발자가 코드 내에서 DI 구성을 정의하고 확인 가능
   * 일반적인 접근 중 하나는
     * XML 파일에 애플리케이션의 인프라(예를 들어 데이터 소스, 트랜잭션 관리자, JMS 연결 팩터리(Connection Factory), JMX 등) 정의하고
-    * 애너테이션으로 DI 구성(주임 가능 빈과 빈의 의존성)을 정의하는 방식
+    * 애너테이션으로 DI 구성(주입 가능 빈과 빈의 의존성)을 정의하는 방식
   => 어떤 옵션을 선택하는지, 선택한 방법을 일관성 있게 준수하고 전체 개발팀이 분명히 이해할 수 있게 메시지를 명확히 전달
   
   
@@ -333,9 +371,9 @@ public class XmlConfigWithBeanFactory {
 </beans>
 ```
 
-* <context:component-scan> 태그는 
-  * 지정한 패키지의 모든 하위 패키지에 있는 클래스에 선언된 @Autowired, @Inject, @Resource 애너테이션 뿐만 아니라
-  * @Component, @Controller, @Repository, @Service 애너테이션이 선언된, 의존성 주입이 가능한 빈의 코드를 스캔하도록 스프링에게 지시함!!
+* **<context:component-scan> 태그**는 
+  * **지정한 패키지의 모든 하위 패키지에 있는 클래스에 선언된 @Autowired, @Inject, @Resource 애너테이션 뿐만 아니라,
+  * **@Component, @Controller, @Repository, @Service 애너테이션이 선언된, 의존성 주입이 가능한 빈의 코드를 스캔하도록 스프링에게 지시**함!!
   * 여러 패키지 정의 가능 : <context:component-scan> 태그에서 쉼표, 세미콜론, 공백을 구분 기호로 사용해 여러 패키지를 정의할 수 있음
   * 스캔 범위 제어 가능 : 이 태그에서는 컴포넌트 스캔의 범위와 제외 범위를 지정해 스캔 범위 제어 가능
 
@@ -545,7 +583,7 @@ public class HelloWorldSpringAnnotated {
 
 
 3.5.3.2 **수정자 주입 사용**하기
-* XML을 이용해 수정자 주입을 구성하려면 <bean> 태그 아래에 의존성을 주입할 <property> 태그를 지정
+* XML을 이용해 수정자 주입을 구성하려면 <bean> 태그 아래에 의존성을 주입할 **<property> 태그**를 지정
 
 ```xml
 <beans>
