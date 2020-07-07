@@ -45,7 +45,8 @@
 * **Spring DI 컨테이너** (책에 없는 내용)
   * **빈(Bean)** : Spring DI 컨테이너가 관리하는 객체
   * **빈 팩토리(Bean Factory)** : 빈(Bean)들을 관리하는 컨테이너. Bean(객체) 등록, 생성, 조회, 반환 관리. 빈 객체간의 의존관계 설정해주는 기능 제공.
-  * **어플리케이션 컨텍스트(Application Context)** : 빈 팩토리(Bean Factory)에 여러가지 컨테이너 기능을 추가한 것(추가 기능: AOP, 메시지 지원, 국제화 지원 등). 보통은 BeanFactory를 바로 사용하지 않고, 이를 확장한 Application Context를 사용. 
+  * **어플리케이션 컨텍스트(Application Context)** : 빈 팩토리(Bean Factory)에 여러가지 컨테이너 기능을 추가한 것(추가 기능: AOP, 메시지 지원, 국제화 지원 등). 보통은 BeanFactory를 바로 사용하지 않고, 이를 확장한 Application Context를 사용.
+  * **스프링 컨테이너(Spring Container)** : 설정파일에 설정된 내용을 읽어 Application에서 필요한 기능들을 제공. 객체를 관리.
   * **스프링 설정파일** : Spring Container가 어떻게 일할지를 설정하는 파일. XML 기반으로 작성. RootTag는 <beans>임.
     * ex.) applicationContext.xml
 ```xml
@@ -59,8 +60,8 @@
             <bean id="oracle" name="wiseworm" class="com.apress.prospring5.ch3.BookwormOracle"/>
         </beans>
 ```
+
     * 여기서 <bean>은 스프링 컨테이너가 관리할 Bean객체를 설정하는 것임.
-  * **스프링 컨테이너(Spring Container)** : 설정파일에 설정된 내용을 읽어 Application에서 필요한 기능들을 제공. 객체를 관리.
   
 * 3.2.1 의존성 풀
   * 의존성 풀에서는 필요에 따라 레지스트리에서 의존성을 가져오게 됩니다.<br>
@@ -96,8 +97,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class DependencyPull {
     public static void main(String... args) {
-        ApplicationContext ctx = new ClassPathXmlApplicationContext
-           ("spring/app-context.xml");
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("spring/app-context.xml");
 
         MessageRenderer mr = ctx.getBean("renderer", MessageRenderer.class);
         mr.render();
