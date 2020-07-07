@@ -277,11 +277,15 @@ public class XmlConfigWithBeanFactory {
   * **직접 코드**로 **부트스트랩**(직접 인스턴스를 생성하고 적절한 애플리케이션 구성을 불러오는 방식)하거나
   * 웹 컨테이너 환경에서 **ContextLoaderListener를 이용**해 부트스트랩 합니다.
 
+<br>
+
 * BeanFactory <<'interface>> <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↑ 
 * ApplicationContext <<'interface>> <br>
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↑ 
 * WebApplicationContext <<'interface>>
+
+<br>
 
 * **빈(bean) 객체 주입 받기** (책에 없는 내용)
   * 설정파일 설정
@@ -402,54 +406,57 @@ public class XmlConfigWithBeanFactory {
 </beans>
 ```
 
+<br>
+
 * 컴포넌트 스캔(component-scan) 다른 예제
-  * 예제1) 설정파일로 bean 객체 주입하는 예제
+* 예제1) 설정파일로 bean 객체 주입하는 예제
 
-  ```xml
-    <?xml version="1.0" encoding="UTF-8"?>
+```xml
+  <?xml version="1.0" encoding="UTF-8"?>
 
-    <beans xmlns="http://www.springframework.org/schema/beans"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.springframework.org/schema/beans 
-            http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/beans 
+          http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-        <bean id="memberDAO" class="com.spring5.ch3.model.MemberDAO"/>
-        <bean id="sellerDAO" class="com.spring5.ch3.model.SellerDAO"/>
-    </beans>
-  ```
+      <bean id="memberDAO" class="com.spring5.ch3.model.MemberDAO"/>
+      <bean id="sellerDAO" class="com.spring5.ch3.model.SellerDAO"/>
+  </beans>
+```
 
-  * 예제2) 예제1)을 컴포넌트 스캔(component-scan)으로 변경
+* 예제2) 예제1)을 컴포넌트 스캔(component-scan)으로 변경
 
-  ```xml
-    <?xml version="1.0" encoding="UTF-8"?>
+```xml
+  <?xml version="1.0" encoding="UTF-8"?>
 
-    <beans xmlns="http://www.springframework.org/schema/beans"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.springframework.org/schema/beans 
-            http://www.springframework.org/schema/beans/spring-beans.xsd"
-            http://www.springframework.org/schema/context
-            http://www.springframework.org/schema/context/spring-context.xsd">
-                                                                             
-        <context:component-scan base-package="com.spring5.ch3.model"></context:component-scan>
-    </beans>
-  ```
+  <beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/beans 
+          http://www.springframework.org/schema/beans/spring-beans.xsd"
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <br>
-  * 위의 설정파일 java 예제
+      <context:component-scan base-package="com.spring5.ch3.model"></context:component-scan>
+  </beans>
+```
 
-  ```java
-      public static void  main(String[] args) {
-        //설정파일이 어디 있는지를 저장하는 객체
-        Resource resource = new ClassPathResource("applicationContext.xml");
+* 위의 설정파일 java 예제
 
-        //객체를 생성해주는 factory 객체
-        BeanFactory factory = new XmlBeanFactory(resource);
+```java
+  public static void  main(String[] args) {
+    //설정파일이 어디 있는지를 저장하는 객체
+    Resource resource = new ClassPathResource("applicationContext.xml");
 
-        //설정파일에 설정한 <bean> 태그의 id/name을 통해 객체를 받아온다.
-        MemberDAO memberDAO = (MemberDAO)factory.getBean("memberDao");      
-        SellerDAO sellerDAO = (SellerDAO)factory.getBean("sellerDAO");
-      }
-  ```
+    //객체를 생성해주는 factory 객체
+    BeanFactory factory = new XmlBeanFactory(resource);
+
+    //설정파일에 설정한 <bean> 태그의 id/name을 통해 객체를 받아온다.
+    MemberDAO memberDAO = (MemberDAO)factory.getBean("memberDao");      
+    SellerDAO sellerDAO = (SellerDAO)factory.getBean("sellerDAO");
+  }
+```
+
+<br>
 
 3.5.3 스프링 컴포넌트 선언하기
 * 스프링에게 이 빈(개발한 클래스)이 다른 빈에 주입될 수 있다는 것을 알려주고, 스프링이 이 빈들을 관리하게 해야 함.
