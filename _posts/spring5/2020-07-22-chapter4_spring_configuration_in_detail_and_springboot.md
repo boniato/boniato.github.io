@@ -126,7 +126,7 @@ public class Singer {
 <br>
 <br>
 
-**4.15 스프링 부트**
+## 4.15 스프링 부트
 
 지금까지 스프링 애플리케이션을 구성하는 여러 가지 방법을 살펴봤습니다. 이제 스프링을 구성할 때 XML, 애너테이션, 자바 구성 클래스, 그루비 스크립트 또는 이 모든 것을 함께 사용하는 방법에 대한 기초 지식을 이해하고 있어야 합니다. 그런데 이들보다 훨씬 근사한 방법이 있다면 어떨까요?
 
@@ -207,3 +207,61 @@ public class HelloWorld {
 ```
 
 이 클래스는 특별하지도 복잡하지도 않으며, 메서드 하나가 정의돼 있고 빈 선언용 애너테이션이 적용돼 있을 뿐입니다. 스프링 부트를 사용해 어떻게 애플리케이션을 만들고 이 빈을 담는 ApplicationContext를 생성하는지 알아보겠습니다.
+
+* 예제 4-103 빈을 사용하는 스프링 부트 테스트 코드([[boot-simple]] Application.java)
+
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import java.util.Arrays;
+
+@SpringBootApplication
+public class Application {
+
+    private static Logger logger = LoggerFactory.getLogger(Application.class);
+
+    public static void main(String... args) throws Exception {
+        ConfigurableApplicationContext ctx 
+          = SpringApplication.run(Application.class, args);
+        assert (ctx != null);
+        logger.info("빈을 검색하는 중:");
+
+        // listing all bean definition names
+        Arrays.stream(ctx.getBeanDefinitionNames()).forEach(logger::info);
+
+        HelloWorld hw = ctx.getBean(HelloWorld.class);
+        hw.sayHi();
+
+        System.in.read();
+        ctx.close();
+    }
+}
+```
+
+이게 코드의 전부입니다. 물론 이 클래스를 더 작게 만들 수 있었지만 추가로 몇 가지 기능을 더 보여주고 싶었습니다. 추가 기능에 어떤 것이 있는지 확인해 보겠습니다.
+
+* **컨텍스트를 가져왔는지 확인하기**: ctx가 null이 아니라는 가정을 테스트하려고 assert 문을 사용했습니다.
+
+* **로그 설정**: 스프링 부트는 몇 가지 로깅 라이브러리를 제공하므로 사용하고자 하는 라이브러리의 설정을 resources 디렉터리에 넣어 주기만 하면 됩니다. 앞 예제에서는 logback 로깅 라이브러리를 선택했습니다.
+
+* **컨텍스트에 정의된 모든 빈 목록 가져오기**: 자바 8 람다식을 사용하면 코드 한 줄로 컨텍스트 내에 정의된 모든 빈 목록을 가져올 수 있습니다. 해당 코드를 추가해 어떤 빈이 스트링 부트에 의해 자동으로 구성되는지 확인할 수 있습니다. 물론 목록에서 helloWorld 빈도 확인할 수 있을 것입니다.
+
+* **애플리케이션 종료 확인**: System.in.read() 메서드가 없으면 애플리케이션은 빈 이름을 출력하고 HelloWorld 출력 후 바로 종료됩니다. 코드에 System.in.read() 메서드 호출을 추가해 애플리케이션이 개발자가 키를 누를 때까지 대기하도록 하며, 키를 누른 후에는 애플리케이션이 종료되도록 합니다.
+
+@SpringBootApplication은 처음 보는 애너테이션으로 클래스 레벨에서만 사용하도록 설계된 최상위 애너테이션입니다. @SpringBootApplication 애너테이션은 다음 세 애너테이션을 모두 정의한 것과 같은 편리한 애너테이션입니다.
+
+* **@Configuration**: 이 애너테이션은 해당 클래스가 @Bean으로 빈을 정의하는 구성 클래스임을 나타냅니다.
+
+* **@EnableAutoConfiguration**: 이 애너테이션은 org.springframework.boot.autoconfigure에 들어있는 특수한 스프링 부트 애너테이션으로 제공된 의존성을 기반으로 사용자가 필요로 할 빈을 추측해 구성한 뒤 스프링 ApplicationContext를 활성화합니다. @EnableAutoConfiguration은 스프링 부트가 제공하는 스타터 의존성과 잘 작동하지만 여기에 결합된 것은 아니므로 스타터 외의 의존성도 사용할 수 있습니다. 예를 들어 클래스패스에 특정 임베디드 서버가 있다면 또 다른 EmbeddedServletContainerFactory 구성이 프로젝트 내에 존재하지 않는 이상 이 임베디드 서버를 사용합니다.
+
+* **@ComponentScan**: 사용할 클래스에 스테레오타입 애너테이션을 지정해 몇 가지 유형의 빈으로 선언할 수 있습니다. @SpringBootApplication에 스캔 대상 패키지 목록을 나타낼 때 사용하는 애트리뷰트는 basePackages입니다. 버전 1.3.0부터 컴포넌트 스캔 대상을 나타낼 때 사용 가능한 애트리뷰트로 basePackageClasses가 추가됐습니다. 이 애트리뷰트는 basePackages의 대안으로 사용되는데, 애너테이션이 적용된 컴포넌트 스캔 대상 패키지를 지정할 때 기존처럼 패키지 문자열을 지정하지 않고 패키지 내 클래스를 명시적으로 지정할 수 있어 basePackages보다 안전합니다. 또한, 스캔 대상 클래스를 여러 개 지정해 여러 패키지에서 컴포넌트를 스캔할 수 있습니다.
+
+<br>
+
+@SpringBootApplication 애너테이션에 컴포넌트 스캔 관련 애트리뷰트를 정의하지 않으면 @ SpringBootApplication을 붙인 클래스가 위치한 패키지만을 검색합니다. 이것이 이전 예제에서 helloWorld 빈 정의를 찾아 빈을 생성할 수 있던 이유입니다.
+
+이전 예제의 스프링 부트 애플리케이션은 즉시 사용 가능한 환경에서 개발자가 정의한 빈 하나만을 가진 단순한 콘솔 애플리케이션이었습니다. 하지만 스프링 부트는 웹 애플리케이션을 위한 스타터 의존성도 제공합니다. 이때 사용하는 의존성은 spring-boot-starter-web으로 그림 4-4에서 이 스프링 부트 스타터 라이브러리의 전이 의존성(transitive dependencies)를 확인할 수 있습니다. boot-web 프로젝트에서 HelloWorld 클래스는 스프링 컨트롤러(스프링 웹에서 빈 생성에 사용되는 특수한 타입의 클래스)입니다. 이 HelloWorld 클래스는 전형적인 스프링 MVC 컨트롤러 클래스로 16장에서 관련 내용을 알아보겠습니다.
